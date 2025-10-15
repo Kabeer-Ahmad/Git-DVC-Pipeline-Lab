@@ -1,7 +1,9 @@
 __pycache__/
 *.pyc
 *.npy
+temp_auto_push.bat
 .dvc/
-.vscode/
 env/
-.venv/
+.venv/.gitignore
+temp_interactive_push.bat
+branch_structure.json
