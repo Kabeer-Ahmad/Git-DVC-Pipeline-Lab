@@ -8,8 +8,8 @@ stages:
     outs:
     - path: data/iris.csv
       hash: md5
-      md5: 21d441a28bce4417276097df955afc50
-      size: 2928
+      md5: 4d301abed5efe50eccda350cde38e0eb
+      size: 2777
   features:
     cmd: python src/features.py --in_csv data/iris.csv --out_dir data 
       --test_size 0.2 --random_state 42
@@ -66,8 +66,8 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: b423048acee4c03e18db32cb2f9db0f4
-      size: 163137
+      md5: f95b4bbfa1d98a5d07463adfe3314a84
+      size: 163169
   evaluate:
     cmd: python src/evaluate.py --data_dir data --model model.pkl --out 
       metrics/eval.json
@@ -82,8 +82,8 @@ stages:
       size: 368
     - path: model.pkl
       hash: md5
-      md5: b423048acee4c03e18db32cb2f9db0f4
-      size: 163137
+      md5: f95b4bbfa1d98a5d07463adfe3314a84
+      size: 163169
     - path: src/evaluate.py
       hash: md5
       md5: cc48b38c5a00fbfdb9d00b817f813c06
@@ -94,5 +94,5 @@ stages:
     outs:
     - path: metrics/eval.json
       hash: md5
-      md5: c57dd2e89a75372665eb758f7487453e
-      size: 73
+      md5: b970b6ecb456636257fa46b44a8565fe
+      size: 70
