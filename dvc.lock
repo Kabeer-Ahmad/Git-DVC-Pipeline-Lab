@@ -11,17 +11,17 @@ stages:
       md5: 4d301abed5efe50eccda350cde38e0eb
       size: 2777
   features:
-    cmd: python src/features.py --in_csv data/iris.csv --out_dir data 
+    cmd: python src/features.py --in_csv data/zameen-updated.csv --out_dir data 
       --test_size 0.2 --random_state 42
     deps:
-    - path: data/iris_dataset.csv
+    - path: data/zameen-updated.csv
       hash: md5
-      md5: e77c66bd7bb4def259e0fd9f6efe417f
-      size: 2765
+      md5: 862ce971c086da8903e8ecc7c8a52c92
+      size: 49522076
     - path: src/features.py
       hash: md5
-      md5: 27170b245304aba4b722b99e22fb614a
-      size: 1099
+      md5: 83140a3b200154069d747ff78f8183b8
+      size: 3750
     params:
       params.yaml:
         features.random_state: 42
@@ -29,70 +29,80 @@ stages:
     outs:
     - path: data/X_test.npy
       hash: md5
-      md5: 6106b6fdfa5e57277f32c885bc1eed51
-      size: 1088
+      md5: cb14ee7903824233138b1a8ce1c9f5e1
+      size: 1351464
     - path: data/X_train.npy
       hash: md5
-      md5: abdc135983612a7ff50c3a300b5b4d55
-      size: 3968
+      md5: fbdb520b653ac33c9ed400fb81d38f72
+      size: 5405472
     - path: data/y_test.npy
       hash: md5
-      md5: c8a14810d1d66e69e3149abda346c748
-      size: 368
+      md5: ba3cc6272ff15ff1afd1e1f059fcb7fb
+      size: 193176
     - path: data/y_train.npy
       hash: md5
-      md5: 2c2741a338b44cc698b03ddaddd77a6a
-      size: 1088
+      md5: a95bad6718663fb87865593aac81859e
+      size: 772320
+    - path: models/feature_field_map.pkl
+      hash: md5
+      md5: ebb9888c58eb8e0d4bada729f520438e
+      size: 180
+    - path: models/label_encoders.pkl
+      hash: md5
+      md5: 79a9a7817240e7bec35f0624ee380c86
+      size: 1344
+    - path: models/model_features.pkl
+      hash: md5
+      md5: 78a7de9935c66ade502eaa275b03cc1f
+      size: 98
   train:
-    cmd: python src/train.py --data_dir data --model_out model.pkl
+    cmd: python src/train.py --data_dir data --model_out 
+      models/house_price_model.pkl
     deps:
     - path: data/X_train.npy
       hash: md5
-      md5: abdc135983612a7ff50c3a300b5b4d55
-      size: 3968
+      md5: fbdb520b653ac33c9ed400fb81d38f72
+      size: 5405472
     - path: data/y_train.npy
       hash: md5
-      md5: 2c2741a338b44cc698b03ddaddd77a6a
-      size: 1088
+      md5: a95bad6718663fb87865593aac81859e
+      size: 772320
     - path: src/train.py
       hash: md5
-      md5: d6b0ebfff707063a2034b2ce7dd9f218
-      size: 875
+      md5: 35b6e4e744e4d9385707c86c33edeb68
+      size: 1058
     params:
       params.yaml:
-        train.max_depth: 5
-        train.n_estimators: 100
+        train.max_depth: 12
+        train.n_estimators: 200
         train.random_state: 42
     outs:
-    - path: model.pkl
+    - path: models/house_price_model.pkl
       hash: md5
-      md5: f95b4bbfa1d98a5d07463adfe3314a84
-      size: 163169
+      md5: e72baac82a72dabd39f372a102f21fea
+      size: 58256881
   evaluate:
-    cmd: python src/evaluate.py --data_dir data --model model.pkl --out 
-      metrics/eval.json
+    cmd: python src/evaluate.py --data_dir data --model 
+      models/house_price_model.pkl --out metrics/eval.json
     deps:
     - path: data/X_test.npy
       hash: md5
-      md5: 6106b6fdfa5e57277f32c885bc1eed51
-      size: 1088
+      md5: cb14ee7903824233138b1a8ce1c9f5e1
+      size: 1351464
     - path: data/y_test.npy
       hash: md5
-      md5: c8a14810d1d66e69e3149abda346c748
-      size: 368
-    - path: model.pkl
+      md5: ba3cc6272ff15ff1afd1e1f059fcb7fb
+      size: 193176
+    - path: models/house_price_model.pkl
       hash: md5
-      md5: f95b4bbfa1d98a5d07463adfe3314a84
-      size: 163169
+      md5: e72baac82a72dabd39f372a102f21fea
+      size: 58256881
     - path: src/evaluate.py
       hash: md5
-      md5: cc48b38c5a00fbfdb9d00b817f813c06
-      size: 932
-    params:
-      params.yaml:
-        evaluate.average: macro
+      md5: 391148e1a5b5c1c8db619f8caeb1246c
+      size: 1010
     outs:
     - path: metrics/eval.json
       hash: md5
-      md5: b970b6ecb456636257fa46b44a8565fe
-      size: 70
+      md5: 99e6146d6c45bb4b3dca691a4aeb3f96
+      size: 87

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand">HousePK</div>
+        <div class="muted">Pakistan House Price Prediction</div>
+      </div>
+
+      <div class="panel">
+        <h1>Enter Property Details</h1>
+        <form action="{{ url_for('predict') }}" method="post">
+          <div class="grid">
+            {% for f in feature_meta %}
+              <div class="col-6">
+                <div class="field">
+                  <label for="{{ f.field }}">{{ f.name }}</label>
+                  {% if f.type == 'categorical' %}
+                    <select id="{{ f.field }}" name="{{ f.field }}" required>
+                      <option value="" disabled selected>Choose...</option>
+                      {% for opt in f.options %}
+                        <option value="{{ opt }}">{{ opt }}</option>
+                      {% endfor %}
+                    </select>
+                  {% else %}
+                    <input id="{{ f.field }}" name="{{ f.field }}" type="number" step="any" required />
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+            <div class="col-12 actions">
+              <button class="btn" type="submit">Predict Price</button>
+              <a class="btn secondary" href="/">Reset</a>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="footer muted">Model uses DVC-managed data and RandomForestRegressor.</div>
+    </div>
+  </body>
+  </html>
+
+
